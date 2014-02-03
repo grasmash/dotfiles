@@ -3,6 +3,21 @@ if [ "$OS" == "Darwin" ]; then
   alias todo='~/dotfiles/repos/todo.txt-cli/todo.sh -d ~/dotfiles/repos/todo.txt-cli/todo.cfg'
 fi
 
+# php aliases
+# allows editing of php.ini
+alias pi='vim $(php -i | grep "Loaded Configuration File" | cut -d" " -f 5)'
+
+alias dcs=drupalcs
+alias dr=drush
+
+# requires that hub be installed! "brew install hub"
+alias git=hub
+# http://stackoverflow.com/a/11369533
+alias git-root='if [ "`git rev-parse --show-cdup`" != "" ]; then cd `git rev-parse --show-cdup`; fi'
+alias gr=git-root
+alias gd='git diff'
+alias gs='git status'
+alias gl='git log'
 alias ..='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../../../'

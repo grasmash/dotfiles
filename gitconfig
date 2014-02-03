@@ -1,7 +1,6 @@
 [user]
-  email = drupal@davidstoline.com
-  name = David Stoline
-  signingkey = 0D488FCE
+  email = matt.grasmick@gmail.com
+  name = Matt Grasmick
 
 [color]
   diff = auto
@@ -38,7 +37,7 @@
   autosetupmerge = true
 
 [github]
-  user = unn
+  user = madmatter23
 
 [rerere]
   enabled = true

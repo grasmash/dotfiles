@@ -8,27 +8,31 @@ fi
 alias pi='vim $(php -i | grep "Loaded Configuration File" | cut -d" " -f 5)'
 
 alias dcs=drupalcs
+alias drupalcs='phpcs --standard=/Users/matthew.grasmick/.drush/coder/coder_sniffer/Drupal/ruleset.xml --extensions=module,install,inc,php,test,profile --ignore=*\\.features\\.*\\.inc'
 alias dr=drush
 
-# requires that hub be installed! "brew install hub"
-alias git=hub
-# http://stackoverflow.com/a/11369533
 alias git-root='if [ "`git rev-parse --show-cdup`" != "" ]; then cd `git rev-parse --show-cdup`; fi'
 alias gr=git-root
+alias recent-branches='git for-each-ref --sort=-committerdate refs/heads/'
 alias gd='git diff'
 alias gs='git status'
 alias gl='git log'
+alias gc='git commit'
+alias gpr='git push origin $(git rev-parse --abbrev-ref HEAD) && hub pull-request -b integration -m "$(git log -1 --pretty=%B)" -o'
 alias ..='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../../../'
 alias ...='cd ../../../'
-alias du='du -kh'
+alias du='du -kh'x
 alias df='df -kTh'
 alias mkdir='mkdir -p'
 alias which='type -a'
 alias h='history'
 alias j='jobs -l'
 alias akcurl='curl -I -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no"'
+
+# requires that selenium server be installed, "brew install selenium-server-standalone"
+alias selenium="java -jar /usr/local/opt/selenium-server-standalone/libexec/selenium-server-standalone-2.42.2.jar"
 
 # The 'ls' family
 alias ll="ls -l"
@@ -115,5 +119,15 @@ pathmunge () {
      else
         PATH=$1:$PATH
      fi
+  fi
+}
+
+function fuck() {
+  killall -9 $2;
+  if [ $? == 0 ]
+  then
+    echo
+    echo " (╯°□°）╯︵$(echo $2|flip &2>/dev/null)"
+    echo
   fi
 }

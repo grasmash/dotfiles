@@ -1,13 +1,10 @@
 export OS=`uname`
-export DOJ_VAGRANT_FOLDER_PATH='/Users/matthew.grasmick/Sites/clients/doj/repo'
-export DRUSH_PHP='/Applications/MAMP/bin/php/php5.3.28/bin/php'
 
 source ~/dotfiles/bash/aliases
 source ~/dotfiles/bash/projects
 source ~/dotfiles/bash/paths
 source ~/dotfiles/bash/completions
 source ~/dotfiles/drush/.drush_bashrc
-source ~/drush/drush.complete.sh
 
 # use .localrc for settings specific to one system
 if [ -f ~/.localrc ]; then
@@ -51,8 +48,6 @@ _update_ps1() {
 export PROMPT_COMMAND="_update_ps1"
 
 shopt -s cdspell
-
-EVENT_NOKQUEUE=1
 
 # set PATH so it includes Support-Tools bin
 if [ -d "/Users/matthew.grasmick/Sites/acquia/Support-Tools/bin" ] ; then

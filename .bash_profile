@@ -5,6 +5,7 @@ source ~/dotfiles/bash/projects
 source ~/dotfiles/bash/paths
 source ~/dotfiles/bash/completions
 source ~/dotfiles/drush/.drush_bashrc
+source "$HOME/.console/console.rc" 2>/dev/null
 
 # use .localrc for settings specific to one system
 if [ -f ~/.localrc ]; then
@@ -28,12 +29,11 @@ shopt -s cdable_vars
 export HISTFILESIZE=10000
 export HISTSIZE=10000
 export EDITOR=vim
-export PHP_AUTOCONF=/usr/local/Cellar/autoconf/2.69/bin/autoconf
-export PHP_AUTOHEADER=/usr/local/Cellar/autoconf/2.69/bin/autoheader
 export PATH=~/dotfiles/bin:$PATH
-export PATH=/Applications/MAMP/Library/bin:$PATH
-export PATH=/Applications/MAMP/bin/php/php5.3.28/bin:$PATH
-export PATH=/usr/local/share/npm/bin:$PATH
+export PATH=/Applications/MAMP/bin/php/php5.6.10/bin:$PATH
+export PATH=$PATH:/usr/local/share/npm/bin
+export PATH=$PATH:/Applications/MAMP/Library/bin
+
 export TERM=xterm-256color
 export NODE_PATH="/usr/local/lib/node"
 
@@ -66,3 +66,32 @@ complete -W '$(/Users/matthew.grasmick/Sites/acquia/Support-Tools/aht --autocomp
 if [ -f ~/.ah_profile ]; then
   . ~/.ah_profile
 fi
+
+# added by travis gem
+[ -f /Users/matthew.grasmick/.travis/travis.sh ] && source /Users/matthew.grasmick/.travis/travis.sh
+
+export PATH="$PATH:/Applications/DevDesktop/drush"
+export NVM_DIR="/Users/matthew.grasmick/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Dev Desktop
+export DEVDESKTOP_DRUPAL_SETTINGS_DIR="$HOME/.acquia/DevDesktop/DrupalSettings"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+function blt() {
+  if [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+    GIT_ROOT=$(git rev-parse --show-cdup)
+  else
+    GIT_ROOT="."
+  fi
+
+  if [ -f "$GIT_ROOT/blt.sh" ]; then
+    $GIT_ROOT/blt.sh "$@"
+  else
+    echo "You must run this command from within a BLT-generated project repository."
+  fi
+}
+
+# Disable cowsay in Ansible.
+export ANSIBLE_NOCOWS=1

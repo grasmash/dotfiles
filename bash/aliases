@@ -1,3 +1,6 @@
+# SSH shortcuts
+alias raspi='ssh pi@192.168.1.7 -i ~/.ssh/id_rsa_magic_mirror'
+
 # Aliases
 if [ "$OS" == "Darwin" ]; then
   alias todo='~/dotfiles/repos/todo.txt-cli/todo.sh -d ~/dotfiles/repos/todo.txt-cli/todo.cfg'
@@ -16,10 +19,11 @@ alias recent-branches='git for-each-ref --sort=-committerdate refs/heads/'
 alias ga='git add'
 alias gd='git diff'
 alias gs='git status'
-alias gl='git log'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gc='git commit'
 alias gcf='git commit --amend --no-edit -n'
-alias gpr='git push grasmash $(git rev-parse --abbrev-ref HEAD) && hub pull-request -b develop -m "$(git log -1 --pretty=%B)" -o'
+alias gpr='hub pull-request -m "$(git log -1 --pretty=%B)" -o'
+alias gp='git push'
 alias hb='hub browse'
 alias ..='cd ..'
 alias cd..='cd ..'
@@ -32,10 +36,11 @@ alias which='type -a'
 alias h='history'
 alias j='jobs -l'
 alias akcurl='curl -I -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no"'
+alias xdebug-enable='export XDEBUG_CONFIG="idekey=PHPSTORM"'
+alias xdebug-disable='unset XDEBUG_CONFIG'
 
 # requires that selenium server be installed, "brew install selenium-server-standalone"
 alias selenium="java -jar /usr/local/opt/selenium-server-standalone/libexec/selenium-server-standalone-2.42.2.jar"
-
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 
 # The 'ls' family
@@ -127,11 +132,13 @@ pathmunge () {
 }
 
 function fuck() {
-  killall -9 $2;
+  pkill $1;
   if [ $? == 0 ]
   then
     echo
-    echo " (╯°□°）╯︵$(echo $2|flip &2>/dev/null)"
+    echo " (╯°□°）╯︵$(echo $1|flip &2>/dev/null)"
     echo
+  else
+    echo 'Nope'
   fi
 }

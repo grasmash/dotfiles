@@ -13,6 +13,8 @@ alias pi='vim $(php -i | grep "Loaded Configuration File" | cut -d" " -f 5)'
 alias dcs=drupalcs
 alias drupalcs='phpcs --standard=/Users/matthew.grasmick/.drush/coder/coder_sniffer/Drupal/ruleset.xml --extensions=module,install,inc,php,test,profile --ignore=*\\.features\\.*\\.inc'
 
+# git aliases
+alias g=git
 alias git-root='if [ "`git rev-parse --show-cdup`" != "" ]; then cd `git rev-parse --show-cdup`; fi'
 alias gr=git-root
 alias recent-branches='git for-each-ref --sort=-committerdate refs/heads/'
@@ -22,9 +24,12 @@ alias gs='git status'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gc='git commit'
 alias gcf='git commit --amend --no-edit -n'
+alias gco='git checkout'
 alias gpr='hub pull-request -m "$(git log -1 --pretty=%B)" -o'
+alias gpg='gcf && git push grasmash -f'
 alias gp='git push'
 alias hb='hub browse'
+
 alias ..='cd ..'
 alias cd..='cd ..'
 alias cd...='cd ../../../'

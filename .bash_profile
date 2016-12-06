@@ -29,13 +29,15 @@ shopt -s cdable_vars
 export HISTFILESIZE=10000
 export HISTSIZE=10000
 export EDITOR=vim
-export PATH=~/dotfiles/bin:$PATH
-export PATH=/Applications/MAMP/bin/php/php5.6.10/bin:$PATH
+export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=$PATH:/usr/local/share/npm/bin
 export PATH=$PATH:/Applications/MAMP/Library/bin
-
+export PATH=/Applications/MAMP/bin/php/php7.0.12/bin:$PATH
+# export PATH=$PATH:/Applications/DevDesktop/drush
+export PATH=$PATH:$HOME/.composer/vendor/bin
 export TERM=xterm-256color
 export NODE_PATH="/usr/local/lib/node"
+export XDEBUG_CONFIG="idekey=PHPSTORM"
 
 _update_ps1() {
     # combining powerline with drush customizations.
@@ -60,6 +62,7 @@ function bastion { mywik2 ; }
 # set ahtools autocomplete
 complete -W '$(/Users/matthew.grasmick/Sites/acquia/Support-Tools/aht --autocomplete)' aht
 
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # include AH profile
@@ -70,14 +73,19 @@ fi
 # added by travis gem
 [ -f /Users/matthew.grasmick/.travis/travis.sh ] && source /Users/matthew.grasmick/.travis/travis.sh
 
-export PATH="$PATH:/Applications/DevDesktop/drush"
 export NVM_DIR="/Users/matthew.grasmick/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# Dev Desktop
-export DEVDESKTOP_DRUPAL_SETTINGS_DIR="$HOME/.acquia/DevDesktop/DrupalSettings"
+# Disable cowsay in Ansible.
+export ANSIBLE_NOCOWS=1
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# Dev Desktop
+export DEVDESKTOP_DRUPAL_SETTINGS_DIR="~/.acquia/DevDesktop/DrupalSettings"
+export PATH="$PATH:/Applications/DevDesktop/tools"
+
+# https://github.com/bamarni/symfony-console-autocomplete
+# symfony-autocomplete > $(brew --prefix)/etc/bash_completion.d/symfony-autocomplete
+# eval "$(symfony-autocomplete)"
 
 function blt() {
   if [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
@@ -86,12 +94,10 @@ function blt() {
     GIT_ROOT="."
   fi
 
-  if [ -f "$GIT_ROOT/blt.sh" ]; then
-    $GIT_ROOT/blt.sh "$@"
+  if [ -f "$GIT_ROOT/vendor/bin/blt" ]; then
+    $GIT_ROOT/vendor/bin/blt "$@"
   else
     echo "You must run this command from within a BLT-generated project repository."
+    exit 1
   fi
 }
-
-# Disable cowsay in Ansible.
-export ANSIBLE_NOCOWS=1
